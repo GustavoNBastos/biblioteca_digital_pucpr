@@ -1,0 +1,24 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribuições / builds
+build/
+dist/
+*.egg-info/
+
+# Arquivos de log
+*.log
+
+# Arquivos do VS Code
+.vscode/
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Bibliotecas virtuais (se houver)
+venv/
+env/
