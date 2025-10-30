@@ -67,3 +67,52 @@ def adicionar_documento():
 
     print(f"✅ Documento '{nome_arquivo}' adicionado com sucesso à biblioteca!")
     print(f"📂 Caminho: {os.path.abspath(destino)}")
+def renomear_documento():
+    """Renomeia um documento existente com base em novo título e ano."""
+    garantir_pasta()
+    arquivos = os.listdir(PASTA_DOCS)
+
+    if not arquivos:
+        print("\n📂 Nenhum documento encontrado na biblioteca.")
+        return
+
+    print("\n=== Documentos Disponíveis ===")
+    for i, arquivo in enumerate(arquivos, start=1):
+        print(f"{i}. {arquivo}")
+
+    nome_atual = input("\nDigite o nome exato do documento que deseja renomear (com extensão): ").strip()
+    caminho_atual = os.path.join(PASTA_DOCS, nome_atual)
+
+    if not os.path.exists(caminho_atual):
+        print("❌ Documento não encontrado. Verifique o nome e tente novamente.")
+        return
+
+    novo_titulo = input("Digite o novo título do documento: ").strip()
+    novo_ano = input("Digite o novo ano de publicação: ").strip()
+
+    # Detecta o tipo automaticamente pela extensão
+    _, extensao = os.path.splitext(nome_atual)
+    extensao = extensao.lower()
+
+    tipos = {
+        ".pdf": "artigo",
+        ".docx": "relatório",
+        ".pptx": "apresentação",
+        ".jpg": "imagem",
+        ".jpeg": "imagem",
+        ".png": "imagem",
+        ".txt": "texto"
+    }
+    tipo = tipos.get(extensao, "outro")
+
+    # Novo nome padronizado
+    novo_nome = f"{novo_titulo.replace(' ', '_')}_{tipo}_{novo_ano}{extensao}"
+    caminho_novo = os.path.join(PASTA_DOCS, novo_nome)
+
+    # Evita sobrescrita acidental
+    if os.path.exists(caminho_novo):
+        print(f"⚠️ Já existe um arquivo chamado '{novo_nome}'. Operação cancelada.")
+        return
+
+    os.rename(caminho_atual, caminho_novo)
+    print(f"✅ Documento renomeado com sucesso para '{novo_nome}'.")
