@@ -2,15 +2,18 @@ from biblioteca import (
     listar_documentos,
     adicionar_documento,
     renomear_documento,
-    remover_documento
+    remover_documento,
+    restaurar_documento,
+    Cores
 )
 
 def exibir_menu():
-    print("\n=== Biblioteca Digital PUCPR ===")
+    print(f"\n{Cores.INFO}=== Biblioteca Digital PUCPR ==={Cores.RESET}")
     print("1. Listar documentos")
     print("2. Adicionar documento")
     print("3. Renomear documento")
     print("4. Remover documento")
+    print("5. Restaurar documento da lixeira")
     print("0. Sair")
 
 def main():
@@ -26,11 +29,13 @@ def main():
             renomear_documento()
         elif opcao == "4":
             remover_documento()
+        elif opcao == "5":
+            restaurar_documento()
         elif opcao == "0":
-            print("👋 Encerrando o sistema. Até logo!")
+            print(f"{Cores.INFO}👋 Encerrando o sistema. Até logo!{Cores.RESET}")
             break
         else:
-            print("❌ Opção inválida. Tente novamente.")
+            print(f"{Cores.ERRO}❌ Opção inválida. Tente novamente.{Cores.RESET}")
 
 if __name__ == "__main__":
     main()
