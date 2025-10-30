@@ -116,3 +116,32 @@ def renomear_documento():
 
     os.rename(caminho_atual, caminho_novo)
     print(f"✅ Documento renomeado com sucesso para '{novo_nome}'.")
+
+
+def remover_documento():
+    """Remove um documento existente da pasta docs."""
+    garantir_pasta()
+    arquivos = os.listdir(PASTA_DOCS)
+
+    if not arquivos:
+        print("\n📂 Nenhum documento encontrado na biblioteca.")
+        return
+
+    print("\n=== Documentos Disponíveis ===")
+    for i, arquivo in enumerate(arquivos, start=1):
+        print(f"{i}. {arquivo}")
+
+    nome_remover = input("\nDigite o nome exato do documento que deseja remover (com extensão): ").strip()
+    caminho_remover = os.path.join(PASTA_DOCS, nome_remover)
+
+    if not os.path.exists(caminho_remover):
+        print("❌ Documento não encontrado. Verifique o nome e tente novamente.")
+        return
+
+    confirmacao = input(f"⚠️ Tem certeza que deseja remover '{nome_remover}'? (s/n): ").strip().lower()
+    if confirmacao != 's':
+        print("❌ Operação cancelada pelo usuário.")
+        return
+
+    os.remove(caminho_remover)
+    print(f"✅ Documento '{nome_remover}' removido com sucesso.")
